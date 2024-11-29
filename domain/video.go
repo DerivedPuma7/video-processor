@@ -18,13 +18,18 @@ func init() {
 	govalidator.SetFieldsRequiredByDefault(true)
 }
 
-func NewVideo(resourceID string, filePath string) *Video {
-	return &Video{
+func NewVideo(resourceID string, filePath string) (*Video, error) {
+	video := &Video{
       ID: uuid.NewV4().String(),
       ResourceID: resourceID,
       FilePath: filePath,
       CreatedAt: time.Now(),
    }
+   err := video.Validate()
+   if err != nil {
+      return nil, err
+   }
+   return video, nil
 }
 
 func (v *Video) Validate() error {
