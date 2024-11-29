@@ -1,8 +1,10 @@
 package domain
 
 import (
-	govalidator "github.com/asaskevich/govalidator"
 	"time"
+
+	govalidator "github.com/asaskevich/govalidator"
+	uuid "github.com/satori/go.uuid"
 )
 
 type Video struct {
@@ -16,8 +18,13 @@ func init() {
 	govalidator.SetFieldsRequiredByDefault(true)
 }
 
-func NewVideo() *Video {
-	return &Video{}
+func NewVideo(resourceID string, filePath string) *Video {
+	return &Video{
+      ID: uuid.NewV4().String(),
+      ResourceID: resourceID,
+      FilePath: filePath,
+      CreatedAt: time.Now(),
+   }
 }
 
 func (v *Video) Validate() error {
