@@ -2,7 +2,6 @@ package services
 
 import (
 	"context"
-	"fmt"
 	"io"
 	"log"
 	"os"
@@ -11,15 +10,8 @@ import (
 	"cloud.google.com/go/storage"
 	"github.com/derivedpuma7/video-processor/application/repositories"
 	"github.com/derivedpuma7/video-processor/domain"
-	"github.com/joho/godotenv"
 )
 
-func init() {
-   err := godotenv.Load("../../.env")
-   if err != nil {
-      log.Fatalf("Error loading .env file")
-   }
-}
 
 type VideoService struct {
 	Video *domain.Video
@@ -33,16 +25,11 @@ func NewVideoService(video *domain.Video, videoRepository repositories.VideoRepo
       Video: video,
       VideoRepository: videoRepository,
       bucket: bucket,
-      localStoragePath: os.Getenv("localStoragePath/"),
+      localStoragePath: os.Getenv("localStoragePath") + "/",
    }
 }
 
 func (v *VideoService) Download() error {
-   fmt.Println("ola mundo: ", v.localStoragePath)
-   fmt.Println("ola mundo2: ", os.Getenv("localStoragePath/"))
-   fmt.Println("ola mundo3: ", "/go/src/credentials/bucket-credential.json")
-
-
    ctx := context.Background()
    client, err := storage.NewClient(ctx)
    if err != nil {
