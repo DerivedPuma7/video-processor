@@ -2,7 +2,8 @@ version: '3'
 
 services:
   app:
-    container_name: video-processor
-    build: .
-    volumes:
-      - .:/go/src/
+   container_name: video-processor
+   restart: always
+   build: .
+   volumes:
+   - .:/go/src/
