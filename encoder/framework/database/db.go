@@ -52,7 +52,7 @@ func (d *Database) Connect() (*gorm.DB, error) {
 	}
 
 	if d.Debug {
-		d.Db.LogMode(true)
+		d.Db.LogMode(false)
 	}
 	if d.AutoMigrateDb {
 		d.Db.AutoMigrate(&domain.Video{}, &domain.Job{})
