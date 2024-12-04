@@ -1,2 +1,2 @@
 .env
-credentials/gcp-bucket-credential.json
+bucket-credential.json
